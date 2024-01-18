@@ -1,0 +1,68 @@
+﻿@using UrunTakip.Models
+@model List<Urun>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    @using (Html.BeginForm())
+
+    {
+        <div style="width:25%; float:left">
+            @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Ürün adı veya açıklama arayınız" })
+          
+          
+            <br />
+            <div style="float:left">
+                <input type="submit" name="btn" value="Ara" class="btn btn-info" />
+            </div>
+        </div>
+    }
+
+</div>
+<br />
+<a href="/Urun/Ekle" class="btn btn-primary">Ürün Ekle</a>
+<br>
+<br>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Resim</th>
+        <th>Ad</th>
+        <th>Açıklama</th>
+        <th>Fiyat</th>
+        <th>Stok</th>
+        <th>Kategori</th>
+       
+            <th>Sil</th>
+            <th>Düzenle</th>
+        
+        
+            <th>Sepete Ekle</th>
+            
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><img src="~/Content/Image/@item.Resim" width="80" height="80" /></td>
+            <td>@item.Ad</td>
+            <td>@item.Aciklama</td>
+            <td>@item.Fiyat</td>
+            <td>@item.Stok</td>
+            <td>@item.Kategori.Ad</td>
+           
+                <td>@Html.ActionLink("Sil", "Sil",new {id =item.Id} ,new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
+                <td><a href="/Urun/Guncelle/@item.Id" class="btn btn-warning">Güncelle</a></td>
+            
+           
+                <td><a href="/Sepet/SepeteEkle/@item.Id" class="btn btn-success">Sepete Ekle</a></td>
+            
+
+
+
+        </tr>
+    }
+</table>
